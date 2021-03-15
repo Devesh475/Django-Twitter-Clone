@@ -6,13 +6,15 @@ User = settings.AUTH_USER_MODEL
 
 
 class Blog(models.Model):
+    parent = models.ForeignKey("self", null=True, on_delete=models.SET_NULL)
     user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
     image = models.ImageField(blank=True, null=True)
-    captions = models.TextField(max_length=500)
+    captions = models.TextField(max_length=500, null=True, blank=True)
     likes = models.ManyToManyField(User, related_name='blogpost', blank=True)
+    dateTime = models.DateTimeField(auto_now=True, blank=True, null=True)
 
     def __str__(self):
-        return self.captions
+        return self.captions or "Retweeted"
     
     def post_url(self):
         return "detail/"+str(self.id)

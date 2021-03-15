@@ -8,4 +8,5 @@ urlpatterns = [
     path('detailuser/<int:pk>', detailuser, name="detailuser"),
     path('allusers', allusers, name="allusers"),
     path('followuser/<int:pk>', followuser, name="followuser"),
+    path('whotofollow', whotofollow, name="whotofollow"),
 ]

@@ -7,14 +7,14 @@
             <img class="rounded-circle mr-2" style="width: 20px; height: 100px;" src="">
             <h3>{{username}}</h3>
             <hr>
-            <h4>Followers : </h4>
+            <h4>Followers : {{followersCount}}</h4>
 
             {% for x in followers %}
                 <p>{{x}}</p>
             {% endfor %}
             <hr>
 
-            <h4>Following : </h4>
+            <h4>Following : {{followingCount}}</h4>
             {% for x in following %}
                 <p>{{x}}</p>
             {% endfor %}

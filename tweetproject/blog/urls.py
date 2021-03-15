@@ -11,4 +11,5 @@ urlpatterns = [
     path('delete/<int:pk>', postdelete, name="postdelete"),
     path('update/<int:pk>', postupdate, name="postupdate"),
     path('deletecomment/<int:pk>', deletecomment, name="deletecomment"),
+    path('retweet/<int:pk>', postretweet, name="postretweet"),
 ]

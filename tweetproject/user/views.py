@@ -57,6 +57,8 @@ def detailuser(request, pk):
         context['username'] = username
         context['followers'] = followerslst
         context['following'] = followinglst
+        context['followersCount'] = len(followerslst)
+        context['followingCount'] = len(followinglst)
         context['bio'] = bio
     else:
         context['username'] = user
@@ -93,4 +95,16 @@ def followuser(request, pk):
             return HttpResponseRedirect(reverse('detailuser', args=[str(pk)]))
     return redirect('/')
 
-                
+def whotofollow(request):
+    users = userform.objects.all()
+    famoususers = {}
+    for x in users:
+        name = x.user.username
+        followersCount = x.followers.all().count()
+        famoususers[name] = followersCount
+    newlist = sorted(famoususers.items(), key = lambda kv:(kv[1], kv[0]))
+    famoususers = []
+    top5 = len(newlist)
+    for var in range(top5-3,top5):
+        famoususers.append(newlist[var])
+    return redirect('/')
