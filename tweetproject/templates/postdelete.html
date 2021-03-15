@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: rgb(101,119,134); border-radius: 10px;">
+        <div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: rgb(101,119,134); border-radius: 10px;">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+        </form>
+        </div>
+    </div>
+{% endblock %}

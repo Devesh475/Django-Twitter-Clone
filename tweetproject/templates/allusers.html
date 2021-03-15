@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+{% for user in users %}
+    {% if request.user != user %}
+    <div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: rgb(101,119,134); border-radius: 10px;">
+        <div class="container">
+        <a style="color:rgb(225, 232, 237);" href="{% url 'detailuser' user.id %}"><p>{{user}}</p></a>
+        </div>
+    </div>
+    {% endif %}
+    <br>
+{% endfor %}
+
+{% endblock %}

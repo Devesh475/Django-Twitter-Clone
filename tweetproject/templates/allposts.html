@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<br>
+{% for post in posts %}
+    <div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: rgb(101,119,134); border-radius: 10px;">
+        <div class="container">
+            <img class="rounded-circle mr-2" style="width: 20px; height: 20px;" src="">
+            <a class="mr-2 white-important" href="{% url 'detailuser' post.user.pk %}">{{ post.user }}</a>
+            <hr>
+            <a  style="color:rgb(225, 232, 237);" href="{{post.post_url}}"><p>{{post.captions | linebreaks | truncatewords:25}}</p></a>
+            <small style="color: rgb(225, 232, 237);">♡ {{post.total_likes}} Likes</small>
+            <small style="color: rgb(225, 232, 237);">|  {{post.total_comments}} comments</small>
+
+        </div>
+    </div>
+    <br>
+{% endfor %}
+
+{% endblock %}

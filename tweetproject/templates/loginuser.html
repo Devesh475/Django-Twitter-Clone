@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: rgb(101,119,134); border-radius: 10px;">
+    <div class="container">
+<form action="" method="POST">
+    {% csrf_token %}
+    <label for="username">Username:</label>
+    <input class = "form-control" type="text" name="username" required>
+    <br>
+    <label for="password">Password:</label>
+    <input class="form-control" type="password" name="password" required>
+    <br>
+    <input type="submit" class="btn btn-primary" name="signup">
+</form>
+</div>
+</div>
+
+{% endblock %}
