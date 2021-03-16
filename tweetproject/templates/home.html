@@ -2,6 +2,34 @@
 
 {% block content %}
 <br>
-<p>Logged in as : {{request.user}}</p>
+<div class="col-12">
+    <h2>Tweets</h2>
+    {% for post in posts %}
+        <div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: rgb(101,119,134); border-radius: 10px;">
+            <div class="container">
+                <img class="rounded-circle mr-2" style="width: 20px; height: 20px;" src="" alt="">
+                <a class="mr-2 white-important" href="{% url 'detailuser' post.user.pk %}">{{ post.user }}</a> 
+                <hr>
+                {% if post.parent %}
+                <div class="container" style="border: 1px solid;border: 1px solid rgb(0, 0, 0);background-color: rgb(170,184,194); border-radius: 10px;); border-radius: 10px;">
+                    <img class="rounded-circle mr-2" style="width: 20px; height: 20px;" src="">
+                    <a class="mr-2 white-important" href="{% url 'detailuser' post.parent.user.pk %}">Retweet : {{ post.parent.user }}</a>
+                    <a href="{{post.post_url}}"><p>{{post.parent.captions | linebreaks | truncatewords:45}}</p></a>
+                    <small style="color: rgb(225, 232, 237);">🤍 {{post.parent.total_likes}} Likes</small>
+                    <small style="color: rgb(225, 232, 237);">| 💬 {{post.parent.total_comments}} comments</small>
+                    <small style="color: rgb(225, 232, 237);">| 🕐 {{post.parent.dateTime}} comments</small>
+                </div>
+                <br>
+                {% else %}
+                    <a  style="color: rgb(199, 194, 194);color: (internal value);text-decoration: unset;" href="{{post.post_url}}"><p>{{post.captions | linebreaks | truncatewords:45}}</p></a>
+                {% endif %}
+                <small style="color: rgb(225, 232, 237);">🤍 {{post.total_likes}} Likes</small>
+                <small style="color: rgb(225, 232, 237);">| 💬 {{post.total_comments}} comments</small>
+                <small style="color: rgb(225, 232, 237);">| 🕐 {{post.dateTime}}</small>
+            </div>
+        </div>
+        <br>
+    {% endfor %}
+</div>
 
 {% endblock %}

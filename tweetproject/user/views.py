@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 def createuser(request):
     form = createUser(request.POST or None)
     if form.is_valid():
-        form.save(commit=False)
+        form.save()
         return redirect('loginuser')
     template_name = "createuser.html"
     context = {"form":form}
@@ -24,6 +24,19 @@ def loginuser(request):
 
     if user is not None:
         login(request, user)
+        qs = userform.objects.filter(user=request.user)
+        qs = qs.first()
+        obj = None
+        if qs is None:
+            obj = userform.objects.create(user=user)
+            obj.save()
+
+        if userform.objects.get(user=request.user).firstName is None:
+            context = {}
+            template_name = "updateprofile.html"
+            form = profileform()
+            context["form"] = form
+            return render(request, template_name, context)
         return redirect('/')
     else:
         messages.info(request,"Username or password incorrect")
@@ -53,7 +66,8 @@ def detailuser(request, pk):
         for x in following:
             followinglst.append(x)
         bio = obj.bio
-        print(followerslst,followinglst)
+        context['profile'] = obj
+        context['req'] = user
         context['username'] = username
         context['followers'] = followerslst
         context['following'] = followinglst
@@ -108,3 +122,23 @@ def whotofollow(request):
     for var in range(top5-3,top5):
         famoususers.append(newlist[var])
     return redirect('/')
+
+def updateprofile(request):
+    obj = userform.objects.get(user=request.user)
+    form = profileform(request.POST or None, instance=obj)
+    if form.is_valid():
+        print(obj)
+        print(form.cleaned_data)
+        obj.firstName = form.cleaned_data['firstName']
+        obj.lastName = form.cleaned_data['lastName']
+        obj.gender = form.cleaned_data['gender']
+        obj.profileImage = form.cleaned_data['profileImage']
+        obj.contactNumber = form.cleaned_data['contactNumber']
+        obj.address = form.cleaned_data['address']
+        obj.bio = form.cleaned_data['bio']
+        obj.save()
+        form.save()
+        return redirect('/detailuser/'+str(request.user.id))
+    template_name = "updateprofile.html"
+    context = {"form":form}
+    return render(request, template_name, context)

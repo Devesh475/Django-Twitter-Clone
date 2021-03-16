@@ -1,5 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from .models import userform
 from django.contrib.auth.models import User
 
 class createUser(UserCreationForm):
@@ -16,3 +17,8 @@ class createUser(UserCreationForm):
         super(createUser, self).__init__(*args, **kwargs)
         self.fields['password1'].widget.attrs['class'] = 'form-control'
         self.fields['password2'].widget.attrs['class'] = 'form-control'
+
+class profileform(forms.ModelForm):
+    class Meta:
+        model = userform
+        fields = ['firstName','lastName','gender','profileImage','contactNumber','address','bio']

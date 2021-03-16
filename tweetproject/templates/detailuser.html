@@ -2,25 +2,36 @@
 
 {% block content %}
 <br>
+    {% if req == request.user %}
+        <a style="border-radius: 5px;" class="btn btn-primary" href="{% url 'updateprofile' %}">Update Profile</a>
+    {% endif %}
     <div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: rgb(101,119,134); border-radius: 10px;">
         <div class="container">
+            <div class="col-3">
             <img class="rounded-circle mr-2" style="width: 20px; height: 100px;" src="">
-            <h3>{{username}}</h3>
+            </div>
+            <div class="col-3">
+            <h3 style="color: white;">{{profile.user}}</h3>
+            <p>
+                {{profile.firstName}} {{profile.lastName}}
+            </p>
+            <p>
+                {{profile.gender}}
+            </p>
+            <p>
+                {{profile.contactNumber}}
+            </p>
+            <p>
+                {{profile.address}}
+            </p>
+            </div>
             <hr>
             <h4>Followers : {{followersCount}}</h4>
 
-            {% for x in followers %}
-                <p>{{x}}</p>
-            {% endfor %}
-            <hr>
-
             <h4>Following : {{followingCount}}</h4>
-            {% for x in following %}
-                <p>{{x}}</p>
-            {% endfor %}
             <hr>
 
-            <p>{{bio}}</p>
+            <h5>{{bio}}</h5>
 
             {% if request.user != username %}
 
@@ -34,5 +45,7 @@
                 </form>
             {% endif %}
         </div>
+        
     </div>
+    
 {% endblock %}

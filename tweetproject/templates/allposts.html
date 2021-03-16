@@ -13,7 +13,7 @@
                 <div class="container">
                     <h4>Profile</h4>
                     <img class="rounded-circle mr-2" style="width: 20px; height: 100px;" src="">
-                    <h5>{{username}}</h5>
+                    <h5 style="color: white;">{{username}}</h5>
                     <hr>
                     <p class="">Followers : {{followersCount}}</p>
                     <p class="">Following : {{followingCount}}</p>
@@ -26,6 +26,9 @@
         </div>
         <div class="col-6">
             <h2>Tweets</h2>
+            {% if not posts %}
+                <h5>No Tweets yet</h5>
+            {% else %}
             {% for post in posts %}
                 <div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: rgb(101,119,134); border-radius: 10px;">
                     <div class="container">
@@ -36,7 +39,7 @@
                         <div class="container" style="border: 1px solid;border: 1px solid rgb(0, 0, 0);background-color: rgb(170,184,194); border-radius: 10px;); border-radius: 10px;">
                             <img class="rounded-circle mr-2" style="width: 20px; height: 20px;" src="">
                             <a class="mr-2 white-important" href="{% url 'detailuser' post.parent.user.pk %}">Retweet : {{ post.parent.user }}</a>
-                            <a href="{{post.post_url}}"><p>{{post.parent.captions | linebreaks | truncatewords:45}}</p></a>
+                            <a style="color: white;color: (internal value);text-decoration: unset;" href="{{post.post_url}}"><p>{{post.parent.captions | linebreaks | truncatewords:45}}</p></a>
                             <small style="color: rgb(225, 232, 237);">🤍 {{post.parent.total_likes}} Likes</small>
                             <small style="color: rgb(225, 232, 237);">| 💬 {{post.parent.total_comments}} comments</small>
                             <small style="color: rgb(225, 232, 237);">| 🕐 {{post.parent.dateTime}} comments</small>
@@ -52,6 +55,7 @@
                 </div>
                 <br>
             {% endfor %}
+            {% endif %}
         </div>
         <div class="col">
             <form class="d-flex">

@@ -2,13 +2,16 @@
 
 {% block content %}
 <br>
+<h3>Update User Profile</h3>
 <div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: rgb(101,119,134); border-radius: 10px;">
+    <br>
     <div class="container">
-        <form action="" method="POST">
-            {% csrf_token %}
-            {{form.as_p}}
-            <input class="btn btn-primary" type="submit" class="btn btn-primary" name="signup">
-        </form>
+    <form action="{% url 'updateprofile' %}" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="btn btn-primary">Update Profile</button>
+    </form>
     </div>
 </div>
+
 {% endblock %}

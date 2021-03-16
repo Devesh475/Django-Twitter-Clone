@@ -26,9 +26,11 @@ def util():
     for x in famoususers:
         users.append(User.objects.get(username=x))
     return users
+
 def home(request):
+    posts = Blog.objects.all()
     template_name = "home.html"
-    context = {}
+    context = {"posts":posts}
     return render(request, template_name, context)
 
 
@@ -48,7 +50,6 @@ def bloglist(request):
         for x in following:
             followinglst.append(x)
         bio = obj.bio
-        print(followerslst,followinglst)
         context['username'] = username
         context['followersCount'] = len(followerslst)
         context['followingCount'] = len(followinglst)
@@ -59,33 +60,14 @@ def bloglist(request):
     if userform.objects.filter(user=request.user).exists():
         obj = userform.objects.get(user=request.user)
         following = obj.following.all()
-        print(following)
         for x in following:
             posts = posts | Blog.objects.filter(user=x)
     
-    # comments = BlogComment.objects.filter(post=)
     f = util()
     template_name = "allposts.html"
     context["posts"]=posts.order_by('-dateTime')
     context["whotofollow"] = f
     return render(request, template_name, context)
-
-
-# @login_required
-# def bloglist(request):
-#     posts = Blog.objects.filter(user=request.user)
-#     if userform.objects.filter(user=request.user).exists():
-#         obj = userform.objects.get(user=request.user)
-#         following = obj.following.all()
-#         print(following)
-#         for x in following:
-#             posts = posts | Blog.objects.filter(user=x)
-    
-#     # comments = BlogComment.objects.filter(post=)
-#     f = util()
-#     template_name = "allposts.html"
-#     context = {"posts":posts.order_by('-dateTime'), "whotofollow":f}
-#     return render(request, template_name, context)
 
 @login_required
 def blogdetail(request, pk):
