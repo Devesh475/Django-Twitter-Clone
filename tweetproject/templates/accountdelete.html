@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<h3>Delete Account</h3>
+<div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: #2d3741; border-radius: 10px;">
+    <br>
+    <div class="container">
+        <h4 style="color: RED;">Warning!</h4>
+        <p>Once you deleted your account you will no longer have access to your account.</p>
+        <p>This cannot be reverted back.</p>
+        <p>Rather Deactivate your account.</p>
+        <p>Your Tweets and data will be erased within a week.</p>
+    <form action="{% url 'accountdelete' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <button class="btn btn-danger">Are you sure</button>
+    </form>
+    </div>
+</div>
+
+{% endblock %}

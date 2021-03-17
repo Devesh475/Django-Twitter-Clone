@@ -196,3 +196,16 @@ def viewfollowers(request):
     template_name = "viewfollowers.html"
     context = {"followers":users}
     return render(request, template_name, context)
+
+def accountdelete(request):
+    if request.method == "POST":
+        user = User.objects.get(id=request.user.id)
+        try:
+            if user is not None:
+                user.delete()
+                return redirect('/loginuser')
+        except:
+            pass
+    template_name = "accountdelete.html"
+    context = {}
+    return render(request, template_name, context)    
