@@ -22,3 +22,16 @@ class profileform(forms.ModelForm):
     class Meta:
         model = userform
         fields = ['firstName','lastName','gender','profileImage','contactNumber','address','bio']
+
+        widgets = {
+            "firstName": forms.TextInput(attrs={'class':'form-control'}),
+            "lastName": forms.TextInput(attrs={'class':'form-control'}),
+            "contactNumber": forms.TextInput(attrs={'class':'form-control'}),
+            "address": forms.TextInput(attrs={'class':'form-control'}),
+            "bio": forms.TextInput(attrs={'class':'form-control'})
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(profileform, self).__init__(*args, **kwargs)
+        self.fields['gender'].widget.attrs['class'] = 'form-control'
+        self.fields['profileImage'].widget.attrs['class'] = 'form-control'

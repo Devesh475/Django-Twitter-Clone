@@ -11,7 +11,7 @@ choices = (
 
 class userform(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    profileImage = models.ImageField(upload_to='images/' ,null=True,blank=True)
+    profileImage = models.ImageField(upload_to='profiles/' ,null=True,blank=True)
     firstName = models.CharField(max_length=200, null=True)
     lastName = models.CharField(max_length=200, null=True)
     gender = models.CharField(max_length=200, choices=choices, null=True)
@@ -27,3 +27,8 @@ class userform(models.Model):
     def follower_list(self):
         f = self.followers
         return f
+    
+    @property
+    def img_url(self):
+        return self.profileImage.url
+        

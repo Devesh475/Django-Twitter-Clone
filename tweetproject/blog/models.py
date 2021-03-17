@@ -6,9 +6,9 @@ User = settings.AUTH_USER_MODEL
 
 
 class Blog(models.Model):
-    parent = models.ForeignKey("self", null=True, on_delete=models.SET_NULL)
+    parent = models.ForeignKey("self", null=True, on_delete=models.SET_NULL, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
-    image = models.ImageField(blank=True, null=True)
+    image = models.ImageField(upload_to='image/',blank=True, null=True)
     captions = models.TextField(max_length=500, null=True, blank=True)
     likes = models.ManyToManyField(User, related_name='blogpost', blank=True)
     dateTime = models.DateTimeField(auto_now=True, blank=True, null=True)

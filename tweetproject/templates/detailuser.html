@@ -1,51 +1,60 @@
 {% extends "base.html" %}
 
 {% block content %}
-<br>
+    <br>
     {% if req == request.user %}
         <a style="border-radius: 5px;" class="btn btn-primary" href="{% url 'updateprofile' %}">Update Profile</a>
+        <br>    
     {% endif %}
-    <div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: rgb(101,119,134); border-radius: 10px;">
+    <br>
+    <div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: #2d3741; border-radius: 10px;">
         <div class="container">
-            <div class="col-3">
-            <img class="rounded-circle mr-2" style="width: 20px; height: 100px;" src="">
-            </div>
-            <div class="col-3">
-            <h3 style="color: white;">{{profile.user}}</h3>
-            <p>
-                {{profile.firstName}} {{profile.lastName}}
-            </p>
-            <p>
-                {{profile.gender}}
-            </p>
-            <p>
-                {{profile.contactNumber}}
-            </p>
-            <p>
-                {{profile.address}}
-            </p>
-            </div>
-            <hr>
-            <h4>Followers : {{followersCount}}</h4>
-
-            <h4>Following : {{followingCount}}</h4>
-            <hr>
-
-            <h5>{{bio}}</h5>
-
-            {% if request.user != username %}
-
-                <form action="{% url 'followuser' username.pk %}" method="POST">
-                    {% csrf_token %}
-                    {% if request.user not in followers %}
-                        <button class="btn btn-primary btn-sm" type="submit">Follow</button>
+            <br>
+            <div class="col-6" style="float: left;width: 50%;">
+                {% if profile.profileImage %}
+                    <img class="rounded-circle mr-2" style="width: 100px; height: 100px;" src="{{profile.profileImage.url}}">
+                    <h3 style="color: white;">User : {{profile.user}}</h3>
                     {% else %}
-                        <button class="btn btn-primary btn-sm" type="submit">Unfollow</button>
-                    {% endif %}
-                </form>
-            {% endif %}
-        </div>
-        
+                    <img class="rounded-circle mr-2" style="width: 100px; height: 100px;" src="">
+                {% endif %}
+            </div>
+            <div class="col-6" style="float: right;width: 50%;">
+                    <p>
+                        {{profile.firstName}} {{profile.lastName}}
+                    </p>
+                    <p>
+                        {{profile.gender}}
+                    </p>
+                    <p>
+                        {{profile.contactNumber}}
+                    </p>
+                    <p>
+                        {{profile.address}}
+                    </p>
+            </div>
+            <h5>{{bio}}</h5>    
+            <hr>
+                <div class="col-6" style="float: left;"><h4>Followers : {{followersCount}}</h4></div>
+                <div class="col-6" style="float: right;"><h4>Following : {{followingCount}}</h4></div>        
+
+                {% if req == request.user %}
+                <hr>
+                <a href="{% url 'viewfollowing' profile.pk %}" class="btn btn-primary btn-sm">View Follwoing</a>
+                <a href="{% url 'viewfollowers' %}" class="btn btn-primary btn-sm">View Followers</a>
+                <hr>
+                {% endif %}
+                {% if request.user != username %}
+
+                    <form action="{% url 'followuser' username.pk %}" method="POST">
+                        {% csrf_token %}
+                        {% if request.user not in followers %}
+                            <button class="btn btn-primary btn-sm" type="submit">Follow</button>
+                        {% else %}
+                            <button class="btn btn-primary btn-sm" type="submit">Unfollow</button>
+                        {% endif %}
+                    </form>
+                {% endif %}
+        </div>   
     </div>
     
 {% endblock %}

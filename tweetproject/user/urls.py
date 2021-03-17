@@ -10,4 +10,7 @@ urlpatterns = [
     path('followuser/<int:pk>', followuser, name="followuser"),
     path('whotofollow', whotofollow, name="whotofollow"),
     path('updateprofile', updateprofile, name="updateprofile"),
+    path('search/', search, name="search"),
+    path('viewfollowing/<int:pk>', viewfollowing, name="viewfollowing"),
+    path('viewfollowers', viewfollowers, name="viewfollowers"),
 ]

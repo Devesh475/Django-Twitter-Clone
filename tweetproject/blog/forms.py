@@ -10,9 +10,9 @@ class postform(forms.ModelForm):
             "captions": forms.TextInput(attrs={'class':'form-control'}),
         }
     
-    # def __init__(self, *args, **kwargs):
-    #     super(postform, self).__init__(*args, **kwargs)
-    #     self.fields['image'].widgets.attrs['class'] = "bi bi-upload"
+    def __init__(self, *args, **kwargs):
+        super(postform, self).__init__(*args, **kwargs)
+        self.fields['image'].widget.attrs['class'] = 'form-control'
 
 class commentform(forms.ModelForm):
     class Meta:

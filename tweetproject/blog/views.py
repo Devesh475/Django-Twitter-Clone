@@ -24,15 +24,20 @@ def util():
                 famoususers.append(y)
     users = []
     for x in famoususers:
-        users.append(User.objects.get(username=x))
+        u = User.objects.get(username=x)
+        users.append({u : userform.objects.get(user=u)})
     return users
 
 def home(request):
     posts = Blog.objects.all()
+    posts = posts.order_by('-dateTime')
+    allposts = []
+    for post in posts:
+        pro = userform.objects.get(user=post.user)
+        allposts.append({post:pro})
     template_name = "home.html"
-    context = {"posts":posts}
+    context = {"posts":allposts}
     return render(request, template_name, context)
-
 
 @login_required
 def bloglist(request):
@@ -50,6 +55,7 @@ def bloglist(request):
         for x in following:
             followinglst.append(x)
         bio = obj.bio
+        context['obj'] = obj
         context['username'] = username
         context['followersCount'] = len(followerslst)
         context['followingCount'] = len(followinglst)
@@ -63,9 +69,15 @@ def bloglist(request):
         for x in following:
             posts = posts | Blog.objects.filter(user=x)
     
+    posts = posts.order_by('-dateTime')
+    allposts = []
+    for post in posts:
+        pro = userform.objects.get(user=post.user)
+        allposts.append({post:pro})
+        
     f = util()
     template_name = "allposts.html"
-    context["posts"]=posts.order_by('-dateTime')
+    context["posts"] = allposts
     context["whotofollow"] = f
     return render(request, template_name, context)
 
@@ -105,7 +117,7 @@ def postlike(request, pk):
 
 @login_required
 def postcreate(request):
-    form = postform(request.POST or None)
+    form = postform(request.POST or None, request.FILES or None)
     if form.is_valid():
         obj = form.save(commit=False)
         obj.user = request.user

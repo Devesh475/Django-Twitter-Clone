@@ -3,14 +3,22 @@
 {% block content %}
 <br>
 {% for user in users %}
-    {% if request.user != user %}
+    {% if request.user != user.user %}
     <div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: rgb(101,119,134); border-radius: 10px;">
         <div class="container">
-        <a style="color:rgb(225, 232, 237);" href="{% url 'detailuser' user.id %}"><p>{{user}}</p></a>
+        {% if user.profileImage %}
+            <img class="rounded-circle mr-2" style="width: 20px; height: 20px;" src="{{user.profileImage.url}}">
+        {% else %}
+            <img class="rounded-circle mr-2" style="width: 20px; height: 20px;" src="https://raw.githubusercontent.com/Devesh475/testRepo/main/usericon.png">    
+        {% endif %}   
+            <a style="color:rgb(225, 232, 237);" class="mr-2 white-important" href="{% url 'detailuser' user.user.id %}">@{{user}}</a>
+            <small> | {{user.firstName}} {{user.lastName}}</small>
+            <br>
+            <small>Bio : {{user.bio}}</small>
         </div>
     </div>
+    <hr>
     {% endif %}
-    <br>
 {% endfor %}
 
 {% endblock %}

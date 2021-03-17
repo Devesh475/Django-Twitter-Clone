@@ -5,6 +5,7 @@ from .forms import *
 from .models import userform
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
@@ -37,7 +38,7 @@ def loginuser(request):
             form = profileform()
             context["form"] = form
             return render(request, template_name, context)
-        return redirect('/')
+        return redirect('/all')
     else:
         messages.info(request,"Username or password incorrect")
     template_name = "loginuser.html"
@@ -80,7 +81,7 @@ def detailuser(request, pk):
 
 
 def allusers(request):
-    obj = User.objects.all()
+    obj = userform.objects.all()
     template_name = "allusers.html"
     context = {"users":obj}
     return render(request, template_name, context)
@@ -125,7 +126,7 @@ def whotofollow(request):
 
 def updateprofile(request):
     obj = userform.objects.get(user=request.user)
-    form = profileform(request.POST or None, instance=obj)
+    form = profileform(request.POST or None, request.FILES or None, instance=obj)
     if form.is_valid():
         print(obj)
         print(form.cleaned_data)
@@ -141,4 +142,57 @@ def updateprofile(request):
         return redirect('/detailuser/'+str(request.user.id))
     template_name = "updateprofile.html"
     context = {"form":form}
+    return render(request, template_name, context)
+
+@csrf_exempt
+def search(request):
+    q = request.GET.get('q', None)
+    context = {}
+    try:
+        user = User.objects.get(username__iexact=q)
+        obj = userform.objects.get(user=user)
+        if obj is not None:
+            context['obj'] = obj
+            context['found'] = True
+    except:
+        context['found'] = False
+    template_name = "search.html"
+    return render(request, template_name, context)
+
+@login_required
+def viewfollowing(request, pk):
+    obj = userform.objects.get(user=request.user)
+    f = obj.following.all()
+    users = []
+    for x in f:
+        users.append(userform.objects.get(user=x))
+    template_name = "viewfollowing.html"
+    context = {"following":users}
+    if request.method == "POST":
+        unfollow_user = userform.objects.get(id=pk)
+        unfollow_user.followers.remove(request.user)
+        unfollow_user = User.objects.get(username=unfollow_user.user)
+        curr = userform.objects.get(user=request.user)
+        curr.following.remove(unfollow_user)
+
+        obj = userform.objects.get(user=request.user)
+        f = obj.following.all()
+        users = []
+        for x in f:
+            users.append(userform.objects.get(user=x))
+        template_name = "viewfollowing.html"
+        context = {"following":users}
+
+        return render(request, template_name, context)
+    return render(request, template_name, context)
+
+@login_required
+def viewfollowers(request):
+    obj = userform.objects.get(user=request.user)
+    f = obj.followers.all()
+    users = []
+    for x in f:
+        users.append(userform.objects.get(user=x))
+    template_name = "viewfollowers.html"
+    context = {"followers":users}
     return render(request, template_name, context)

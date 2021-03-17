@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <br>
+    <div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: #2d3741; border-radius: 10px;">
+        <div class="container">
+            <br>
+            <h3>Follwoing : </h3>
+            {% for user in following %}
+            <div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: rgb(101,119,134); border-radius: 10px;">
+                <div class="container">
+                    {% if user.profileImage %}
+                        <img class="rounded-circle mr-2" style="width: 20px; height: 20px;" src="{{user.profileImage.url}}">
+                    {% else %}
+                        <img class="rounded-circle mr-2" style="width: 20px; height: 20px;" src="https://raw.githubusercontent.com/Devesh475/testRepo/main/usericon.png">    
+                    {% endif %}   
+                    <a style="color:rgb(225, 232, 237);" class="mr-2 white-important" href="{% url 'detailuser' user.user.pk %}">@{{user}}</a>
+                    <small> | {{user.firstName}} {{user.lastName}}</small>
+                    <br>
+                    <form action="{% url 'viewfollowing' user.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-primary btn-sm" style="float: right;" type="submit">Unfollow</button>
+                    </form>
+                    <small>Bio : {{user.bio}}</small>
+                </div>
+            </div>
+            <hr>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
