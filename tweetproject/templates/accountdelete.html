@@ -11,10 +11,13 @@
         <p>This cannot be reverted back.</p>
         <p>Rather Deactivate your account.</p>
         <p>Your Tweets and data will be erased within a week.</p>
-    <form action="{% url 'accountdelete' %}" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <button class="btn btn-danger">Are you sure</button>
-    </form>
+        <form action="{% url 'accountdelete' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="password">Enter Password : </label>
+            <input type="password" name="password" class="form-control">
+            <br>
+            <button class="btn btn-danger">Delete Permanantly</button>
+        </form>
     </div>
 </div>
 

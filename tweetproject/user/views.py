@@ -197,9 +197,12 @@ def viewfollowers(request):
     context = {"followers":users}
     return render(request, template_name, context)
 
+@login_required
 def accountdelete(request):
     if request.method == "POST":
-        user = User.objects.get(id=request.user.id)
+        username = request.user
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
         try:
             if user is not None:
                 user.delete()
@@ -209,3 +212,22 @@ def accountdelete(request):
     template_name = "accountdelete.html"
     context = {}
     return render(request, template_name, context)    
+
+def passwordupdate(request):
+    if request.method == 'POST':
+        username = User.objects.get(id=request.user.id)
+        password = request.POST['password']
+
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
+        if password1 != password2:
+            return redirect('/passwordupdate')
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            user.set_password(password2)
+            user.save()
+            return redirect('/loginuser')
+    template_name = "passwordupdate.html"
+    context = {}
+    return render(request, template_name, context)

@@ -73,6 +73,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                       <li><a class="dropdown-item" href="{% url 'detailuser' request.user.id %}">{{request.user}}</a></li>
+                      <li><a class="dropdown-item" href="{% url 'passwordupdate' %}">Change Password</a></li>
                       <li><a class="dropdown-item" href="{% url 'accountdelete' %}">Delete Account</a></li>
                       <li><a class="dropdown-item" href="{% url 'allusers' %}">All Users</a></li>
                       <li><a class="dropdown-item" href="#">More</a></li>
