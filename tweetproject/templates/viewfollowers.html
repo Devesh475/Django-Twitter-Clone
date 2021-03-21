@@ -14,11 +14,10 @@
                     {% else %}
                         <img class="rounded-circle mr-2" style="width: 20px; height: 20px;" src="https://raw.githubusercontent.com/Devesh475/testRepo/main/usericon.png">    
                     {% endif %}   
-                    <a style="color:rgb(225, 232, 237);" class="mr-2 white-important" href="#">@{{user}}</a>
+                    <a style="color:rgb(225, 232, 237);" class="mr-2 white-important" href="{% url 'detailuser' user.user.pk %}">@{{user}}</a>
                     <small> | {{user.firstName}} {{user.lastName}}</small>
                     <br>
                     <small>Bio : {{user.bio}}</small>
-                    <hr>
                 </div>
             </div>
             <hr>
