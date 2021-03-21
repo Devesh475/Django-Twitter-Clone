@@ -13,36 +13,38 @@ def createuser(request):
     form = createUser(request.POST or None)
     if form.is_valid():
         form.save()
+        messages.success(request, "User Created Successfully")
         return redirect('loginuser')
     template_name = "createuser.html"
     context = {"form":form}
     return render(request, template_name, context)
 
 def loginuser(request):
-    username = request.POST.get('username')
-    password = request.POST.get('password')
-    user = authenticate(request, username=username, password=password)
-
-    if user is not None:
-        login(request, user)
-        qs = userform.objects.filter(user=request.user)
-        qs = qs.first()
-        obj = None
-        if qs is None:
-            obj = userform.objects.create(user=user)
-            obj.save()
-
-        if userform.objects.get(user=request.user).firstName is None:
-            context = {}
-            template_name = "updateprofile.html"
-            form = profileform()
-            context["form"] = form
-            return render(request, template_name, context)
-        return redirect('/all')
-    else:
-        messages.info(request,"Username or password incorrect")
-    template_name = "loginuser.html"
     context = {}
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            login(request, user)
+            qs = userform.objects.filter(user=request.user)
+            qs = qs.first()
+            obj = None
+            if qs is None:
+                obj = userform.objects.create(user=user)
+                obj.save()
+
+            if userform.objects.get(user=request.user).firstName is None:
+                context = {}
+                template_name = "updateprofile.html"
+                form = profileform()
+                context["form"] = form
+                return render(request, template_name, context)
+            return redirect('/all')
+        else:
+            return render(request, 'loginuser.html', {"err":"Username or password incorrect"})
+    template_name = "loginuser.html"
     return render(request, template_name, context)
 
 @login_required
