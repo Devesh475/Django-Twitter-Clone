@@ -79,6 +79,21 @@
             <div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: #2d3741; border-radius: 10px;">
                 <div class="container">
                     <br>
+                    <h5>What’s happening</h5>
+                    {% for x in whats %}
+                        <div class="card" style="background-color: #2d3741;">
+                            <div class="container">  
+                                <a style="color: rgb(199, 194, 194);color: (internal value);text-decoration: unset;" href="{{x.post_url}}"><p>{{x.captions | linebreaks | truncatewords:25}}</p></a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <br>
+            </div>
+            <hr>
+            <div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: #2d3741; border-radius: 10px;">
+                <div class="container">
+                    <br>
                     <h5>Who To Follow</h5>
                     {% for y in whotofollow %}
                         {% for x, img in y.items %}

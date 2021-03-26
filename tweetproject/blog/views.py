@@ -75,6 +75,10 @@ def bloglist(request):
         pro = userform.objects.get(user=post.user)
         allposts.append({post:pro})
         
+    popular_posts = Blog.objects.all().order_by('-dateTime')
+    popular_posts = popular_posts[:3]
+    context['whats'] = set(popular_posts)
+
     f = util()
     template_name = "allposts.html"
     context["posts"] = allposts
@@ -164,6 +168,8 @@ def postretweet(request, pk):
     user = request.user
     if request.method == "POST":
         print(parentpost.captions)
-        newBlog = Blog.objects.create(user=user, parent=parentpost, captions=parentpost.captions)
+        newBlog = Blog.objects.create(user=user, parent=parentpost, captions=parentpost.captions, image=parentpost.image)
         return redirect('/detail/'+str(newBlog.pk))
     return redirect('/detail/'+str(pk))
+
+

@@ -23,6 +23,10 @@
             border-radius: 10px;
             border: 1px solid white;
           }
+          .dropdown-item:hover{
+            background-color: #90909017;
+            border-radius: 10px;
+          }
           .nav-link:hover{
             background-color: #90909017;
             border-radius: 10px;
@@ -71,12 +75,12 @@
                     <a style="color: azure;" class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Settings
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <li><a class="dropdown-item" href="{% url 'passwordupdate' %}">Change Password</a></li>
-                      <li><a class="dropdown-item" href="{% url 'accountdelete' %}">Delete Account</a></li>
-                      <li><a class="dropdown-item" href="{% url 'allusers' %}">All Users</a></li>
-                      <li><a class="dropdown-item" href="{% url 'logoutuser' %}">Logout</a></li>
-                      <li><a class="dropdown-item" href="#">More</a></li>
+                    <ul class="dropdown-menu" style="background-color: #15202b;" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" style="color: white;" href="{% url 'passwordupdate' %}">Change Password</a></li>
+                      <li><a class="dropdown-item" style="color: white;" href="{% url 'accountdelete' %}">Delete Account</a></li>
+                      <li><a class="dropdown-item" style="color: white;" href="{% url 'allusers' %}">All Users</a></li>
+                      <li><a class="dropdown-item" style="color: white;" href="{% url 'logoutuser' %}">Logout</a></li>
+                      <li><a class="dropdown-item" style="color: white;" href="#">More</a></li>
                     </ul>
                   </li>
                   <li class="nav-item">

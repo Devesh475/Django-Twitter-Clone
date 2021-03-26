@@ -217,12 +217,15 @@ def accountdelete(request):
 
 def passwordupdate(request):
     if request.method == 'POST':
+        if 'warning' in request.session:
+            del request.session['warning']
         username = User.objects.get(id=request.user.id)
         password = request.POST['password']
 
         password1 = request.POST['password1']
         password2 = request.POST['password2']
         if password1 != password2:
+            request.session['warning'] = 'Password did not match'
             return redirect('/passwordupdate')
         user = authenticate(request, username=username, password=password)
 
