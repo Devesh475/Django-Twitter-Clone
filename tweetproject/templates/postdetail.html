@@ -4,71 +4,84 @@
 
 <br>
     <div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: #2d3741; border-radius: 10px;">
-    <div class="container">    
-        <br>
-        {% if post.image %}
-            <img class="rounded-circle mr-2" style="width: 30px; height: 30px;" src="{{post.image.url}}">
-        {% endif %}
-        <a href="{% url 'detailuser' post.user.pk %}" class="mr-2 white-important">@{{post.user}}</a>
-        <small>Posted On: {{post.dateTime}}</small>
-        <hr>
-        {% if post.parent %}
-            <a class="mr-2 white-important" href="{% url 'detailuser' post.parent.user.pk %}">Retweet : @{{ post.parent.user }}</a>
+        <div class="container">    
+            <br>
             {% if post.image %}
-                <br>
-                <img class="card-img-top" style="width: 100px;height: 100px;" src="{{post.parent.image.url}}">
+                <img class="rounded-circle mr-2" style="width: 30px; height: 30px;" src="{{post.image.url}}">
             {% endif %}
-            <p>{{post.parent.captions}}</p>
-            <a style="text-decoration: unset;" class="btn-secondary btn-sm" href="{% url 'blogdetail' post.parent.pk %}">Visit Original Post</a>
-        {% else %}
-            {% if post.image %}
-                <img class="card-img-top" style="width: 100px;height: 100px;" src="{{post.image.url}}">
-            {% endif %}
-            <p>{{post.captions}}</p>
-        {% endif %}
-        <p>🤍 : {{total_likes}}</p>
-    
-        {% if user.is_authenticated %}
-            <form action="{% url 'postlike' post.pk %}" method="POST">
-                {% csrf_token %}
-                {% if liked %}
-                    <button class="btn btn-primary btn-sm" type="submit">Like</button>
-                {% else %}
-                    <button class="btn btn-primary btn-sm" type="submit">UnLike</button>
+            <a href="{% url 'detailuser' post.user.pk %}" class="mr-2 white-important">@{{post.user}}</a>
+            <small>Posted On: {{post.dateTime}}</small>
+            <hr>
+            {% if post.parent %}
+                <a class="mr-2 white-important" href="{% url 'detailuser' post.parent.user.pk %}">Retweet : @{{ post.parent.user }}</a>
+                {% if post.image %}
+                    <br>
+                    <img class="card-img-top" style="width: 100px;height: 100px;" src="{{post.parent.image.url}}">
                 {% endif %}
-            </form>
-            {% if post.user == request.user %}
-                <a class="btn btn-danger btn-sm" href="{% url 'postdelete' post.pk %}">Delete</a>
-                <a class="btn btn-warning btn-sm" href="{% url 'postupdate' post.pk %}">Update</a>
+                <p>{{post.parent.captions}}</p>
+                <a style="text-decoration: unset;" class="btn-secondary btn-sm" href="{% url 'blogdetail' post.parent.pk %}">Visit Original Post</a>
             {% else %}
-                <form action="{% url 'postretweet' post.pk %}" method="POST">
-                    {% csrf_token %}
-                    <button class="btn btn-primary btn-sm">Retweet</button>
-                </form>
-            {% endif %}
-        {% endif %}
-        <hr>
-        <h5>Comments</h5>
-        {% for comment in comments %}
-            <div>
-                <small>By {{comment.user}} {{comment.timestamp}}</small>
-                {% if request.user == post.user %}
-                <a class="btn btn-sm" href="{% url 'deletecomment' comment.pk %}">❌</a>
+                {% if post.image %}
+                    <img class="card-img-top" style="width: 100px;height: 100px;" src="{{post.image.url}}">
                 {% endif %}
-                <p>{{comment.text}}</p>
-            </div>
-        {% endfor %}
+                <p>{{post.captions}}</p>
+            {% endif %}
+            <p>🤍 : {{total_likes}}</p>
         
-        <hr>
-        {% if user.is_authenticated %}
-            <form action="" method="POST">
-                {% csrf_token %}    
-                {{form.as_p}}
-                <button class="btn btn-sm btn-primary" type="submit">Add New comment</button>
-            </form>
-        {% endif %}
-
+            {% if user.is_authenticated %}
+                <form action="{% url 'postlike' post.pk %}" method="POST">
+                    {% csrf_token %}
+                    {% if liked %}
+                        <button class="btn btn-primary btn-sm" type="submit">Like</button>
+                    {% else %}
+                        <button class="btn btn-primary btn-sm" type="submit">UnLike</button>
+                    {% endif %}
+                </form>
+                {% if post.user == request.user %}
+                    <a class="btn btn-danger btn-sm" href="{% url 'postdelete' post.pk %}">Delete</a>
+                    <a class="btn btn-warning btn-sm" href="{% url 'postupdate' post.pk %}">Update</a>
+                {% else %}
+                    <form action="{% url 'postretweet' post.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-primary btn-sm">Retweet</button>
+                    </form>
+                {% endif %}
+            {% endif %}
+        </div>
     </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="container" style="border: 1px solid rgb(0, 0, 0);background-color: #2d3741; border-radius: 10px;">
+                <h5>Comments</h5>
+                {% if comments %}
+                    {% for comment in comments %}
+                        <div>
+                            <small>By {{comment.user}} {{comment.timestamp}}</small>
+                            {% if request.user == post.user %}
+                            <a class="btn btn-sm" href="{% url 'deletecomment' comment.pk %}">❌</a>
+                            {% endif %}
+                            <p>{{comment.text}}</p>
+                        </div>
+                        <hr>
+                    {% endfor %}
+                {% else %}
+                    <p>No comments yet</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="container" style="border: 1px solid rgb(0, 0, 0);background-color: #2d3741; border-radius: 10px;">
+                <h5>Add new comment!</h5>
+                {% if user.is_authenticated %}
+                    <form action="" method="POST">
+                        {% csrf_token %}    
+                        {{form.as_p}}
+                        <button class="btn btn-sm btn-primary" type="submit">Submit</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
     </div>
 
 {% endblock %}

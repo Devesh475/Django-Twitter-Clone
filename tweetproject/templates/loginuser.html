@@ -3,6 +3,8 @@
 {% block content %}
 
 <br>
+<div class="col-lg-8">
+<h2>Login Here! </h2>
 <div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: #2d3741; border-radius: 10px;">
     {% if messages %}
         {% for message in messages %}
@@ -24,5 +26,9 @@
             <input type="submit" class="btn btn-primary" name="signup">
         </form>
     </div>
+    <div class="container">
+        <p>Don't have an account? <a href="{% url 'createuser' %}">SignUp</a> </p>
+    </div>
+</div>
 </div>
 {% endblock %}

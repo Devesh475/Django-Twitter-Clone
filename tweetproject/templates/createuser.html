@@ -2,13 +2,19 @@
 
 {% block content %}
 <br>
-<div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: #2d3741; border-radius: 10px;">
-    <div class="container">
-        <form action="" method="POST">
-            {% csrf_token %}
-            {{form.as_p}}
-            <input class="btn btn-primary" type="submit" class="btn btn-primary" name="signup">
-        </form>
+<div class="col-lg-8">
+    <h2>SignUp User! </h2>
+    <div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: #2d3741; border-radius: 10px;">
+        <div class="container">
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{form.as_p}}
+                <input class="btn btn-primary" type="submit" class="btn btn-primary" name="signup">
+            </form>
+        </div>
+        <div class="container">
+            <p>Already have an account? <a href="{% url 'loginuser' %}"> Login</a> </p>
+        </div>
     </div>
 </div>
 {% endblock %}
