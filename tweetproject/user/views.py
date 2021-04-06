@@ -236,3 +236,15 @@ def passwordupdate(request):
     template_name = "passwordupdate.html"
     context = {}
     return render(request, template_name, context)
+
+# def passwordreset(request):
+#     template_name = "forgotpassword.html"
+#     context = {}
+#     email = request.GET.get('q')
+#     phone = request.GET.get('p')
+#     user = User.objects.filter(email=email).first()
+#     if user is not None:
+#         userNumber = userform.objects.get(user=user)
+#         if userNumber.contactNumber[:,-4] == phone:
+
+#     return render(request, template_name, context)

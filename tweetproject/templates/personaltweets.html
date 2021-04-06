@@ -3,7 +3,7 @@
 {% block content %}
 <br>
 <div class="col-12">
-    <h2>Tweets</h2>
+    <h2>Tweets by {{request.user}}</h2>
     {% if not posts %}
         <h5>No Tweets yet</h5>
     {% else %}
@@ -46,10 +46,10 @@
             {% endfor %}
         {% endif %}
         {% if posts.has_previous %}
-            <a href="{% url 'home' %}?page={{posts.previous_page_number}}" class="btn btn-outline-secondary btn-sm" style="">Previous Page</a>
+            <a href="{% url 'personalposts' %}?page={{posts.previous_page_number}}" class="btn btn-outline-secondary btn-sm" style="">Previous Page</a>
         {% endif %}
         {% if posts.has_next %}
-            <a href="{% url 'home' %}?page={{posts.next_page_number}}" class="btn btn-outline-secondary btn-sm" style="">Next Page</a>
+            <a href="{% url 'personalposts' %}?page={{posts.next_page_number}}" class="btn btn-outline-secondary btn-sm" style="">Next Page</a>
         {% endif %}
         <br>
         <br>

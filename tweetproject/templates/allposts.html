@@ -25,7 +25,7 @@
                 <br>
             </div>
         </div>
-        <div class="col-md-6" style="overflow-y: auto;overflow-x:hidden;height: 700px;">
+        <div class="col-md-6" style="">
             <h2>Tweets</h2>
             {% if not posts %}
                 <h5>No Tweets yet</h5>
@@ -52,6 +52,12 @@
                                     {% endif %}   
                                     <a class="mr-2 white-important" href="{% url 'detailuser' post.parent.user.pk %}">Retweet : @{{ post.parent.user }}</a>
                                     <a style="color: white;color: (internal value);text-decoration: unset;" href="{{post.post_url}}"><p>{{post.parent.captions | linebreaks | truncatewords:45}}</p></a>
+                                    <div class="container" style="text-align: center;">
+                                        {% if post.parent.image %}
+                                            <img class="card-img-top" style="width: 100px;height: 100px;" src="{{post.parent.image.url}}">
+                                            <hr>
+                                        {% endif %}
+                                    </div>
                                     <small style="color: rgb(225, 232, 237);">🤍 {{post.parent.total_likes}} Likes</small>
                                     <small style="color: rgb(225, 232, 237);">| 💬 {{post.parent.total_comments}} comments</small>
                                     <small style="color: rgb(225, 232, 237);">| 🕐 {{post.parent.dateTime}} comments</small>
@@ -59,6 +65,13 @@
                                 <br>
                                 {% else %}
                                     <a  style="color: rgb(199, 194, 194);color: (internal value);text-decoration: unset;" href="{{post.post_url}}"><p>{{post.captions | linebreaks | truncatewords:45}}</p></a>
+                                    <div class="container" style="text-align: center;">
+                                    {% if post.image %}
+                                        <img class="card-img-top" style="width: 100px;height: 100px;" src="{{post.image.url}}">
+                                        <br>
+                                        <hr>
+                                    {% endif %}
+                                    </div>
                                 {% endif %}
                                 <small style="color: rgb(225, 232, 237);">🤍 {{post.total_likes}} Likes</small>
                                 <small style="color: rgb(225, 232, 237);">| 💬 {{post.total_comments}} comments</small>
@@ -69,10 +82,19 @@
                     {% endfor %}
                 {% endfor %}
             {% endif %}
+            {% if posts.has_previous %}
+                <a href="{% url 'postlist' %}?page={{posts.previous_page_number}}" class="btn btn-outline-secondary btn-sm" style="">Previous Page</a>
+            {% endif %}
+            {% if posts.has_next %}
+                <a href="{% url 'postlist' %}?page={{posts.next_page_number}}" class="btn btn-outline-secondary btn-sm" style="">Next Page</a>
+            {% endif %}
+            <br>
+            <br>
         </div>
         <div class="col-md-3">
+            <br>
             <form class="d-flex" action="/search/">
-                <input class="form-control me-2" name="q" type="search" placeholder="Search Twitter" aria-label="Search">
+                <input class="form-control me-2" name="q" type="search" placeholder="Search Twitter" aria-label="Search" style="border-radius: 20px;background-color: #2d3741">
                 <button class="btn btn-primary" style="border-radius: 15px;background-color: rgb(17, 159, 247);" type="submit">🔍</button>
             </form>
             <h2 style="">Trends</h2>
@@ -83,7 +105,7 @@
                     {% for x in whats %}
                         <div class="card" style="background-color: #2d3741;border: None;">
                             <div class="container">  
-                                <a style="color: rgb(199, 194, 194);color: (internal value);text-decoration: unset;" href="{{x.post_url}}"><p>{{x.captions | linebreaks | truncatewords:25}}</p></a>
+                                <a style="color: rgb(199, 194, 194);color: (internal value);text-decoration: unset;" href="{{x.post_url}}"><p>{{x.captions | linebreaks | truncatewords:10}}</p></a>
                             </div>
                         </div>
                     {% endfor %}

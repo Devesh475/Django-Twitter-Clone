@@ -2,11 +2,8 @@
 
 {% block content %}
     <br>
-    {% if req == request.user %}
-        <a style="border-radius: 5px;" class="btn btn-primary" href="{% url 'updateprofile' %}">Update Profile</a>
-        <br>    
-    {% endif %}
-    <br>
+    <div class="row">
+    <div class="col-md-8">
     <div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: #2d3741; border-radius: 10px;">
         <div class="container">
             <br>
@@ -56,5 +53,29 @@
                 {% endif %}
         </div>   
     </div>
-    
+    </div>
+    <div class="col-md-4">
+        {% if req == request.user %}
+        <div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: #2d3741; border-radius: 10px;">
+            <div class="container">
+                <br>
+                <a href="{% url 'personalposts' %}">View own Tweets</a>
+                <hr>
+                <a href="{% url 'updateprofile' %}">Update Profile</a>
+                <hr>
+                <a href="{% url 'passwordupdate' %}">Change Password</a>
+                <hr>
+                <a href="{% url 'logoutuser' %}">Logout</a>
+                <hr>
+            </div>
+        </div>
+        {% endif %}
+        <p><a href="">Terms</a>,
+            <a href="">Privacy policy</a>,
+            <a href="">Cookies</a>,
+            <a href="">Ads info</a>,
+            <a href="">More</a>
+            © 2021 Twitter, Inc.</p>
+    </div>
+</div>
 {% endblock %}

@@ -35,3 +35,8 @@ class profileform(forms.ModelForm):
         super(profileform, self).__init__(*args, **kwargs)
         self.fields['gender'].widget.attrs['class'] = 'form-control'
         self.fields['profileImage'].widget.attrs['class'] = 'form-control'
+    
+class resetpassword(forms.Form):
+    newpassword = forms.PasswordInput()
+    newpasswordconf = forms.PasswordInput()
+    

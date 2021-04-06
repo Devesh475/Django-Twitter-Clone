@@ -5,6 +5,7 @@ from .forms import postform, commentform
 from user.models import userform
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -35,8 +36,36 @@ def home(request):
     for post in posts:
         pro = userform.objects.get(user=post.user)
         allposts.append({post:pro})
+    
+    p = Paginator(allposts, 3)
+    try:
+        page_num = request.GET.get('page', 1)
+        page = p.page(page_num)
+    except:
+        page = p.page(1)
+
     template_name = "home.html"
-    context = {"posts":allposts}
+    context = {"posts":page}
+    return render(request, template_name, context)
+
+@login_required
+def personalposts(request):
+    posts = Blog.objects.filter(user=request.user)
+    posts = posts.order_by('-dateTime')
+    allposts = []
+    for post in posts:
+        pro = userform.objects.get(user=post.user)
+        allposts.append({post:pro})
+    
+    p = Paginator(allposts, 3)
+    try:
+        page_num = request.GET.get('page', 1)
+        page = p.page(page_num)
+    except:
+        page = p.page(1)
+
+    template_name = "personaltweets.html"
+    context = {"posts":page}
     return render(request, template_name, context)
 
 @login_required
@@ -74,14 +103,21 @@ def bloglist(request):
     for post in posts:
         pro = userform.objects.get(user=post.user)
         allposts.append({post:pro})
-        
+
+    p = Paginator(allposts, 3)
+    try:
+        page_num = request.GET.get('page', 1)
+        page = p.page(page_num)
+    except:
+        page = p.page(1)
+
     popular_posts = Blog.objects.all().order_by('-dateTime')
     popular_posts = popular_posts[:3]
     context['whats'] = set(popular_posts)
 
     f = util()
     template_name = "allposts.html"
-    context["posts"] = allposts
+    context["posts"] = page
     context["whotofollow"] = f
     return render(request, template_name, context)
 

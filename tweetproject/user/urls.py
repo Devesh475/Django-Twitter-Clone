@@ -14,5 +14,6 @@ urlpatterns = [
     path('viewfollowing/<int:pk>', viewfollowing, name="viewfollowing"),
     path('viewfollowers', viewfollowers, name="viewfollowers"),
     path('accountdelete', accountdelete, name="accountdelete"),
-    path('passwordupdate', passwordupdate, name="passwordupdate")
+    path('passwordupdate', passwordupdate, name="passwordupdate"),
+    # path('resetpassword', passwordreset, name="passwordreset"),
 ]

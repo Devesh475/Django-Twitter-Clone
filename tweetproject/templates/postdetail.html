@@ -14,7 +14,7 @@
             <hr>
             {% if post.parent %}
                 <a class="mr-2 white-important" href="{% url 'detailuser' post.parent.user.pk %}">Retweet : @{{ post.parent.user }}</a>
-                {% if post.image %}
+                {% if post.parent.image %}
                     <br>
                     <img class="card-img-top" style="width: 100px;height: 100px;" src="{{post.parent.image.url}}">
                 {% endif %}
