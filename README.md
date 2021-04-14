@@ -16,6 +16,6 @@ Twitter is a 'microblogging' system that allows you to send and receive short po
 * DATABASE USED : SQL LITE
 
 ### How to use?
-* git clone https://github.com/Devesh475/Twitter-clone-django.git
+* git clone https://github.com/Devesh475/Django-Twitter-Clone.git
 * navigate to manage.py directory
 * python manage.py runserver
