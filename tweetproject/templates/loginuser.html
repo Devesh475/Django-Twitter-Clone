@@ -2,6 +2,7 @@
 
 {% block content %}
 
+<div class="row">
 <br>
 <div class="col-lg-8">
 <h2>Login Here! </h2>
@@ -17,10 +18,11 @@
     {% endif %}
     </div>
     <div class="container">
+        <br>
         <form action="" method="POST">
             {% csrf_token %}
             <label for="username">Username:</label>
-            <input class = "form-control" type="text" name="username" required>
+            <input class = "form-control" type="text" name="username" required> 
             <br>
             <label for="password">Password:</label>
             <input class="form-control" type="password" name="password" required>
@@ -30,6 +32,16 @@
     </div>
     <div class="container">
         <p>Don't have an account? <a href="{% url 'createuser' %}">SignUp</a> </p>
+    </div>
+</div>
+</div>
+<div class="col-lg-4">
+    <h2>Start Socializing</h2>
+    <div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: #2d3741; border-radius: 10px;">
+        <div class="container" style="padding: 10px;">
+            {% load static %}
+            <img src="{% static 'images/b.jpg' %}" alt="" style="height: inherit; width: inherit;">
+        </div>
     </div>
 </div>
 </div>

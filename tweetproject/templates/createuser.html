@@ -1,19 +1,31 @@
 {% extends "base.html" %}
 
 {% block content %}
-<br>
-<div class="col-lg-8">
-    <h2>SignUp User! </h2>
-    <div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: #2d3741; border-radius: 10px;">
-        <div class="container">
-            <form action="" method="POST">
-                {% csrf_token %}
-                {{form.as_p}}
-                <input class="btn btn-primary" type="submit" class="btn btn-primary" name="signup" style="border-radius: 20px;">
-            </form>
+<div class="row">
+    <br>
+    <div class="col-lg-8">
+        <h2>SignUp User! </h2>
+        <div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: #2d3741; border-radius: 10px;">
+            <div class="container">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <input class="btn btn-primary" type="submit" class="btn btn-primary" name="signup" style="border-radius: 20px;">
+                </form>
+            </div>
+            <div class="container">
+                <p>Already have an account? <a href="{% url 'loginuser' %}"> Login</a> </p>
+            </div>
         </div>
-        <div class="container">
-            <p>Already have an account? <a href="{% url 'loginuser' %}"> Login</a> </p>
+    </div>
+    <br><br>
+    <div class="col-lg-4">
+        <h2>Start Socializing</h2>
+        <div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: #2d3741; border-radius: 10px;">
+            <div class="container" style="padding: 10px;">
+                {% load static %}
+                <img src="{% static 'images/b.jpg' %}" alt="" style="height: inherit; width: inherit;">
+            </div>
         </div>
     </div>
 </div>

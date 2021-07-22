@@ -2,18 +2,20 @@
 
 {% block content %}
 <br>
-<div class="col-lg-8">
-<h2>Create new tweet</h2>
-<div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: #2d3741; border-radius: 10px;">
-    <div class="container">
-    <form action="" method="POST" enctype="multipart/form-data">
-        <br>
-        {% csrf_token %}
-        {{form.media}}
-        {{form.as_p}}
-        <button class="btn btn-primary" type="submit">Create</button>
-    </form>
+<div class="row">
+    <div class="col-lg-8">
+        <h2>Create new tweet</h2>
+        <div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: #2d3741; border-radius: 10px;">
+            <div class="container">
+            <form action="" method="POST" enctype="multipart/form-data">
+                <br>
+                {% csrf_token %}
+                {{form.media}}
+                {{form.as_p}}
+                <button class="btn btn-primary" type="submit">Create</button>
+            </form>
+            </div>
+        </div>
     </div>
-</div>
 </div>
 {% endblock %}
