@@ -76,7 +76,7 @@
                 <h5>Add new comment!</h5>
                 {% if user.is_authenticated %}
                     <form action="" method="POST">
-                        {% csrf_token %}    
+                        {% csrf_token %}   
                         {{form.as_p}}
                         <button class="btn btn-sm btn-primary" type="submit">Submit</button>
                     </form>

@@ -104,10 +104,8 @@
                     <h5>What’s happening</h5>
                     {% for x in whats %}
                         <div class="card" style="background-color: #2d3741;border: None;">
-                            <div class="container">  
-                                <a style="color: rgb(199, 194, 194);color: (internal value);text-decoration: unset;" href="{{x.post_url}}"><p>{{x.captions | linebreaks | truncatewords:10}}</p></a>
-                            </div>
-                        </div>
+                            <a style="color: rgb(199, 194, 194);color: (internal value);text-decoration: unset;" href="/detail/{{x.id}}"><p>{{x.captions | linebreaks | truncatewords:10}}</p></a>                            
+                        </div>                    
                     {% endfor %}
                 </div>
                 <br>

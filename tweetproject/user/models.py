@@ -21,7 +21,7 @@ class userform(models.Model):
     following = models.ManyToManyField(User, related_name="hasfollowed", blank=True)
     bio = models.CharField(max_length=500, blank=True, null=True)
 
-    def __str__(self):
+    def __str__(self):          
         return str(self.user)
 
     def follower_list(self):

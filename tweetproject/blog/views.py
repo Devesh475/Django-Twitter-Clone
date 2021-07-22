@@ -29,6 +29,7 @@ def util():
         users.append({u : userform.objects.get(user=u)})
     return users
 
+@login_required
 def home(request):
     posts = Blog.objects.all()
     posts = posts.order_by('-dateTime')
