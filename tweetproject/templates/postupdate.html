@@ -2,14 +2,24 @@
 
 {% block content %}
 <br>
-    <div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: #2d3741; border-radius: 10px;">
-        <div class="container">
-            <br>
-        <form action="" method="POST">
-            {% csrf_token %}
-            {{form.as_p}}
-            <button class="btn btn-primary" type="submit">Update</button>
-        </form>
+<div class="row">
+    <div class="col-md-8">
+        <div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: #2d3741; border-radius: 10px;">
+            <div class="container">
+                <br>
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{form.media}}
+                {{form.as_p}}
+                <button class="btn btn-primary" type="submit">Update</button>
+            </form>
+            </div>
         </div>
     </div>
+    <div class="col-md-4">
+        <div class="card" style="border: 1px solid rgb(0, 0, 0);background-color: #2d3741; border-radius: 10px;">
+            
+        </div>
+    </div>
+</div>
 {% endblock %}
